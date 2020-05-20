@@ -30,9 +30,6 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
-    'rest_framework',
-    'rest_framework.authtoken',
-    'django_filters',
     'comentarios',
     'avaliacoes',
     'enderecos',
@@ -45,6 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework.authtoken',
+    'rest_framework',
+    'django_filters',
+    'drf_yasg',
 ]
 
 

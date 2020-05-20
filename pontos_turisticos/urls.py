@@ -20,10 +20,11 @@ from core.api.viewsets import PontoTuristicoViewSet
 from enderecos.api.viewsets import EnderecoViewSet
 from atracoes.api.viewsets import AtracaoViewSet
 from django.conf.urls.static import static
-from django.conf.urls import include
+from django.conf.urls import include, url
 from rest_framework import routers
 from django.contrib import admin
 from django.conf import settings
+from .docs import schema_view
 from django.urls import path
 
 
@@ -39,4 +40,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-token-auth/', obtain_auth_token),
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='docs-json'),
+    path('docs/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
