@@ -1,3 +1,5 @@
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .serializers import PontoTuristicoSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter
@@ -6,8 +8,11 @@ from rest_framework.response import Response
 from core.models import PontoTuristico
 from rest_framework import status
 
+
 class PontoTuristicoViewSet(ModelViewSet):
     serializer_class = PontoTuristicoSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
     filter_backends = (SearchFilter,)
     search_fields = ('nome', 'descricao',)
     lookup_field = 'id'  # Necessário ser unique... Se houver mais de um objeto dará erro no get...
