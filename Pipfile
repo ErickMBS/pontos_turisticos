@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 
-
 [packages]
 django = "==2.0.4"
 djangorestframework = "*"
@@ -17,6 +16,7 @@ dj-static = "*"
 gunicorn = "*"
 psycopg2 = "*"
 drf-yasg = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.6"
