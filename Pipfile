@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 
+
 [packages]
 django = "==2.0.4"
 djangorestframework = "*"
