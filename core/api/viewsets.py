@@ -42,17 +42,19 @@ class PontoTuristicoViewSet(ModelViewSet):
         return Response(serializer.data)
 
 
-    def create(self, request, *args, **kwargs):
-        try:
-            if request.data['aprovado'].upper() == 'TRUE':
-                ponto = PontoTuristico.objects.create(
-                    aprovado=True,
-                    nome=request.data['nome'],
-                    descricao=request.data['descricao'],
-                )
-                return Response({'Ok': f'Opa, ponto turistico criado, id: {ponto.id}'})
-        except Exception as e:
-            return Response({'Erro': f'Não foi aprovado... erro:{e}'})
+    # def create(self, request, *args, **kwargs):
+    #     try:
+    #         if request.data['aprovado']:
+    #             ponto = PontoTuristico.objects.create(
+    #                 aprovado=True,
+    #                 nome=request.data['nome'],
+    #                 descricao=request.data['descricao'],
+    #             )
+    #             return Response({'Ok': f'Opa, ponto turistico criado, id: {ponto.id}'})
+    #         else:
+    #             return Response({'Nope': 'Tem que ser aprovado...'})
+    #     except Exception as e:
+    #         return Response({'Erro': f'Não foi aprovado... erro:{e}'})
 
 
     def destroy(self, request, *args, **kwargs):
@@ -92,3 +94,13 @@ class PontoTuristicoViewSet(ModelViewSet):
     @action(methods=['get'], detail=True)
     def denunciar(self, request, pk=None):
         pass
+
+    @action(methods=['post'], detail=True)
+    def associa_atracoes(self, request, id):
+        atracoes = request.data['ids']
+        ponto = PontoTuristico.objects.get(id=id)
+
+        ponto.atracoes.set(atracoes)
+        ponto.save()
+
+        return Response('OK', status=status.HTTP_200_OK)
